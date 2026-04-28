@@ -20,4 +20,38 @@ const encode = (texto, k) => {
     return comprimido;
 }
 
-export default { encode }
+const decode = (codewords, k) => {
+    let texto = "";
+    const tamanhoSufixo = Math.ceil(Math.log2(k));
+
+    for(let i = 0; i < codewords.length; i++){
+        let indice = 0;
+        let tamanhoPrefixo = 0;
+        let sufixo = "";
+
+        const codeword = codewords[i];
+
+        for(let j = 0; j < codeword.length; j++){
+            if(codeword[j] === "1"){
+                indice++;
+                break;
+            }
+
+            tamanhoPrefixo++;
+            indice++;
+        }
+
+        for(let j = indice; j < indice + tamanhoSufixo; j++){
+            sufixo += codeword[j];
+        }
+
+        const resto = parseInt(sufixo, 2);
+        const charCode = tamanhoPrefixo * k + resto;
+
+        texto += String.fromCharCode(charCode);
+    }
+
+    return texto;
+}
+
+export default { encode, decode }
