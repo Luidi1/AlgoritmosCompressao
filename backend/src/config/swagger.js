@@ -35,17 +35,45 @@ const options = {
                     },
                     responses: {
                         200: {
-                            description: "Texto codificado com sucesso"
+                            description: "Texto codificado com sucesso",
+                            content: {
+                                "application/json": {
+                                    example: {
+                                        resultado: [
+                                            "0000000000000000101",
+                                            "000000000000000000000101",
+                                            "0000000000000000000100",
+                                            "0000000000000000101"
+                                        ]
+                                    }
+                                }
+                            }
                         },
                         400: {
-                            description: "Erro de validação nos dados enviados"
+                            description: "Erro de validação",
+                            content: {
+                                "application/json": {
+                                    example: {
+                                        mensagem: "O campo texto é obrigatório!"
+                                    }
+                                }
+                            }
                         },
                         500: {
-                            description: "Erro interno ao codificar com Golomb"
+                            description: "Erro interno",
+                            content: {
+                                "application/json": {
+                                    example: {
+                                        mensagem: "Erro ao codificar com Golomb",
+                                        erro: "Detalhes do erro"
+                                    }
+                                }
+                            }
                         }
                     }
                 }
             },
+
             "/golomb/decode": {
                 post: {
                     summary: "Decodifica codewords usando Golomb",
@@ -80,13 +108,35 @@ const options = {
                     },
                     responses: {
                         200: {
-                            description: "Codewords decodificados com sucesso"
+                            description: "Codewords decodificados com sucesso",
+                            content: {
+                                "application/json": {
+                                    example: {
+                                        resultado: "AULA"
+                                    }
+                                }
+                            }
                         },
                         400: {
-                            description: "Erro de validação nos dados enviados"
+                            description: "Erro de validação",
+                            content: {
+                                "application/json": {
+                                    example: {
+                                        mensagem: "Codeword inválido na posição 0"
+                                    }
+                                }
+                            }
                         },
                         500: {
-                            description: "Erro interno ao decodificar com Golomb"
+                            description: "Erro interno",
+                            content: {
+                                "application/json": {
+                                    example: {
+                                        mensagem: "Erro ao decodificar com Golomb",
+                                        erro: "Detalhes do erro"
+                                    }
+                                }
+                            }
                         }
                     }
                 }
