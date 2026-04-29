@@ -1,3 +1,4 @@
+import ErroValidacao from "../../errors/ErroValidacao.js";
 import golombService from "../../services/golombService.js";
 
 describe("Golomb Service - encode", () => {
@@ -28,12 +29,16 @@ describe("Golomb Service - encode", () => {
         expect(resultado).toEqual(esperado);
     });
 
-    /*test("Deve retornar uma mensagem de erro caso o texto for vazio.", () => {
+    test("Deve lançar erro quando texto for vazio.", () => {
         const texto = "";
         const k = 2;
 
-        const resultado = golombService(texto, k);
+        expect(() => {
+            golombService.encode(texto, k);
+        }).toThrow(ErroValidacao);
 
-        expect(resultado).to
-    });*/
-})
+        expect(() => {
+            golombService.encode(texto, k);
+        }).toThrow("O campo texto é obrigatório!");
+    });
+});

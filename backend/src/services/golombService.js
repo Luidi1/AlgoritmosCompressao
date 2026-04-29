@@ -1,4 +1,8 @@
+import golombValidation from "../validations/golombValidacao.js";
+
 const encode = (texto, k) => {
+    golombValidation.validarEncodeGolomb(texto, k);
+
     const comprimido = [];
     const stopBit = "1";
 
@@ -21,6 +25,8 @@ const encode = (texto, k) => {
 }
 
 const decode = (codewords, k) => {
+    golombValidation.validarDecodeGolomb(codewords, k);
+
     let texto = "";
     const tamanhoSufixo = Math.ceil(Math.log2(k));
 
