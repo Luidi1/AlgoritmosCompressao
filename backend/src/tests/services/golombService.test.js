@@ -1,44 +1,74 @@
 import ErroValidacao from "../../errors/ErroValidacao.js";
 import golombService from "../../services/golombService.js";
+import MENSAGENS_ERRO from "../../utils/mensagensErro.js";
 
 describe("Golomb Service - encode", () => {
-    test("Deve codificar corretamente a palavra 'AULA' com 'k = 4'", () => {
-        const texto = "AULA";
-        const k = 4;
+    describe("sucesso", () => {
+        test("Deve codificar corretamente a palavra 'AULA' com k = 4", () => {
+            const texto = "AULA";
+            const k = 4;
 
-        const resultado = golombService.encode(texto, k);
+            const resultado = golombService.encode(texto, k);
 
-        //vamos calcular manualmente o esperado:
+            const A = "0".repeat(16) + "1" + "01";
+            const U = "0".repeat(21) + "1" + "01";
+            const L = "0".repeat(19) + "1" + "00";
+            const A2 = A;
 
-        //A = 65
-        //Prefixo = 65/4 -> 16 zeros
-        //Stop bit = 1
-        //sufixo = 65 % 4 -> 1 resto
-        //tamanho do sufixo = log2(4) -> 2 bits
-        const A = "0".repeat(16) + "1" + "01";
+            const esperado = [A, U, L, A2];
 
-        const U = "0".repeat(21) + "1" + "01";
-
-        const L = "0".repeat(19) + "1" + "00";
-
-        //A novamente
-        const A2 = A;
-
-        const esperado = [A, U, L, A2];
-
-        expect(resultado).toEqual(esperado);
+            expect(resultado).toEqual(esperado);
+        });
     });
 
-    test("Deve lançar erro quando texto for vazio.", () => {
-        const texto = "";
-        const k = 2;
+    describe("campos obrigatórios", () => {
+        test.each([
+            ["vazio", ""],
+            ["undefined", undefined],
+            ["null", null]
+        ])("Deve lançar erro quando texto for %s", (_, valor) => {
+            const executar = () => golombService.encode(valor, 2);
 
-        expect(() => {
-            golombService.encode(texto, k);
-        }).toThrow(ErroValidacao);
+            expect(executar).toThrow(ErroValidacao);
+            expect(executar).toThrow(MENSAGENS_ERRO.CAMPO_OBRIGATORIO("texto"));
+        });
 
-        expect(() => {
-            golombService.encode(texto, k);
-        }).toThrow("O campo texto é obrigatório!");
+        test.each([
+            ["undefined", undefined],
+            ["null", null]
+        ])("Deve lançar erro quando k for %s", (_, valor) => {
+            const executar = () => golombService.encode("A", valor);
+
+            expect(executar).toThrow(ErroValidacao);
+            expect(executar).toThrow(MENSAGENS_ERRO.CAMPO_OBRIGATORIO("k"));
+        });
+    });
+
+    describe("valores inválidos", () => {
+        test.each([
+            ["number", 123],
+            ["boolean", true],
+            ["object", {}],
+            ["array", []]
+        ])("Deve lançar erro quando texto for %s", (_, valor) => {
+            const executar = () => golombService.encode(valor, 2);
+
+            expect(executar).toThrow(ErroValidacao);
+            expect(executar).toThrow(MENSAGENS_ERRO.TEXTO_INVALIDO);
+        });
+
+        test.each([
+            ["string", "teste"],
+            ["decimal", 2.5],
+            ["zero", 0],
+            ["negativo", -1],
+            ["boolean", true],
+            ["object", {}]
+        ])("Deve lançar erro quando k for %s", (_, valor) => {
+            const executar = () => golombService.encode("A", valor);
+
+            expect(executar).toThrow(ErroValidacao);
+            expect(executar).toThrow(MENSAGENS_ERRO.K_INVALIDO);
+        });
     });
 });

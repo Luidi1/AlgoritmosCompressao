@@ -1,51 +1,58 @@
 import ErroValidacao from "../errors/ErroValidacao.js"
+import MENSAGENS_ERRO from "../utils/mensagensErro.js";
 
 const validarK = (k) => {
-    if(k === undefined){
-        throw new ErroValidacao("O campo k é obrigatório!");
+    if(k === undefined || k === null){
+        throw new ErroValidacao(MENSAGENS_ERRO.CAMPO_OBRIGATORIO("k"));
     }
 
     if(!Number.isInteger(k) || k <= 0){
-        throw new ErroValidacao("O campo k deve ser inteiro positivo!");
+        throw new ErroValidacao(MENSAGENS_ERRO.K_INVALIDO);
     }
 }
 
 const validarEncodeGolomb = (texto, k) => {
-    if(texto === undefined || texto === ""){
-        throw new ErroValidacao("O campo texto é obrigatório!");
+    if(texto === undefined || texto === "" || texto === null){
+        throw new ErroValidacao(MENSAGENS_ERRO.CAMPO_OBRIGATORIO("texto"));
     }
 
     if(typeof texto !== "string"){
-        throw new ErroValidacao("O campo texto deve ser string!");
+        throw new ErroValidacao(MENSAGENS_ERRO.TEXTO_INVALIDO);
     }
 
     validarK(k);
 }
 
 const validarDecodeGolomb = (codewords, k) => {
-    if(codewords === undefined){
-        throw new ErroValidacao("O campo Codewords é obrigatório!");
+    if(codewords === undefined || codewords === null){
+        throw new ErroValidacao(MENSAGENS_ERRO.CAMPO_OBRIGATORIO("codewords"));
     }
 
     if(!Array.isArray(codewords) || codewords.length === 0){
-        throw new ErroValidacao("O campo codewords deve ser um array não vazio!");
+        throw new ErroValidacao(MENSAGENS_ERRO.CODEWORDS_INVALIDO);
     }
 
     for(let i = 0; i < codewords.length; i++){
-        const codeword = codewords[i];
+    const codeword = codewords[i];
 
-        if(typeof codeword !== "string"){
-            throw new ErroValidacao(`Codeword inválido na posição ${i}. Cada codeword deve ser uma string.`);
-        }
-        
-        if (codeword === "") {
-            throw new ErroValidacao(`Codeword inválido na posição ${i}. Codeword não pode ser vazio.`);
-        }
-
-        if (!/^[01]+$/.test(codeword)) {
-            throw new ErroValidacao(`Codeword inválido na posição ${i}. Só pode conter 0 e 1.`);
-        }
+    if(typeof codeword !== "string"){
+        throw new ErroValidacao(
+            MENSAGENS_ERRO.CODEWORD_NAO_STRING(i)
+        );
     }
+    
+    if (codeword === "") {
+        throw new ErroValidacao(
+            MENSAGENS_ERRO.CODEWORD_VAZIO(i)
+        );
+    }
+
+    if (!/^[01]+$/.test(codeword)) {
+        throw new ErroValidacao(
+            MENSAGENS_ERRO.CODEWORD_BINARIO_INVALIDO(i)
+        );
+    }
+}
 
     validarK(k);
 }
