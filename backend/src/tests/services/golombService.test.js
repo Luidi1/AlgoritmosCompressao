@@ -159,6 +159,23 @@ describe("Golomb Service - decode", () => {
             expect(executar).toThrow(MENSAGENS_ERRO.CODEWORD_BINARIO_INVALIDO(0));
         });
 
+        test("Deve lançar erro quando codeword não tiver stop bit", () => {
+            const executar = () => golombService.decode(["0000"], 2);
+
+            expect(executar).toThrow(ErroValidacao);
+            expect(executar).toThrow(MENSAGENS_ERRO.CODEWORD_SEM_STOP_BIT(0));
+        });
+
+        test.each([
+            ["curto demais", "1"],
+            ["longo demais", "1010"]
+        ])("Deve lançar erro quando codeword tiver tamanho %s", (_, valor) => {
+            const executar = () => golombService.decode([valor], 2);
+
+            expect(executar).toThrow(ErroValidacao);
+            expect(executar).toThrow(MENSAGENS_ERRO.CODEWORD_TAMANHO_INVALIDO(0));
+        });
+
         test.each(CASOS_K_INVALIDO)("Deve lançar erro quando k for %s", (_, valor) => {
             const executar = () => golombService.decode(["101"], valor);
 
