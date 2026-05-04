@@ -26,6 +26,7 @@ const options = {
                                         },
                                         k: {
                                             type: "integer",
+                                            minimum: 1,
                                             example: 4
                                         }
                                     }
@@ -53,8 +54,25 @@ const options = {
                             description: "Erro de validação",
                             content: {
                                 "application/json": {
-                                    example: {
-                                        mensagem: "O campo texto é obrigatório!"
+                                    examples: {
+                                        campoObrigatorio: {
+                                            summary: "Campo obrigatório",
+                                            value: {
+                                                mensagem: "O campo texto é obrigatório!"
+                                            }
+                                        },
+                                        textoInvalido: {
+                                            summary: "Texto inválido",
+                                            value: {
+                                                mensagem: "O campo texto deve ser uma string válida!"
+                                            }
+                                        },
+                                        kInvalido: {
+                                            summary: "K inválido",
+                                            value: {
+                                                mensagem: "O campo k deve ser um número inteiro maior que zero!"
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -64,8 +82,7 @@ const options = {
                             content: {
                                 "application/json": {
                                     example: {
-                                        mensagem: "Erro ao codificar com Golomb",
-                                        erro: "Detalhes do erro"
+                                        mensagem: "Erro interno do servidor"
                                     }
                                 }
                             }
@@ -99,6 +116,7 @@ const options = {
                                         },
                                         k: {
                                             type: "integer",
+                                            minimum: 1,
                                             example: 4
                                         }
                                     }
@@ -121,8 +139,31 @@ const options = {
                             description: "Erro de validação",
                             content: {
                                 "application/json": {
-                                    example: {
-                                        mensagem: "Codeword inválido na posição 0"
+                                    examples: {
+                                        campoObrigatorio: {
+                                            summary: "Campo obrigatório",
+                                            value: {
+                                                mensagem: "O campo codewords é obrigatório!"
+                                            }
+                                        },
+                                        codewordsInvalido: {
+                                            summary: "Codewords inválido",
+                                            value: {
+                                                mensagem: "O campo codewords deve ser um array válido!"
+                                            }
+                                        },
+                                        codewordInvalido: {
+                                            summary: "Codeword inválido",
+                                            value: {
+                                                mensagem: "Codeword inválido na posição 0"
+                                            }
+                                        },
+                                        kInvalido: {
+                                            summary: "K inválido",
+                                            value: {
+                                                mensagem: "O campo k deve ser um número inteiro maior que zero!"
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -132,8 +173,7 @@ const options = {
                             content: {
                                 "application/json": {
                                     example: {
-                                        mensagem: "Erro ao decodificar com Golomb",
-                                        erro: "Detalhes do erro"
+                                        mensagem: "Erro interno do servidor"
                                     }
                                 }
                             }
