@@ -1,8 +1,11 @@
 import express from "express";
-import golombRoutes from "./routes/golombRoutes.js"
+import golombRoutes from "./routes/golombRoutes.js";
+import eliasGammaRoutes from "./routes/eliasGammaRoutes.js";
 import swaggerUi from "swagger-ui-express";
 import swaggerSpec from "./config/swagger.js";
 import middlewarewErros from "./middlewares/middlewareErros.js";
+
+
 
 const app = express();
 
@@ -15,6 +18,7 @@ app.get("/ping", (req, res) => {
 });
 
 app.use("/golomb", golombRoutes);
+app.use("/eliasgamma", eliasGammaRoutes);
 
 app.use(middlewarewErros);
 
