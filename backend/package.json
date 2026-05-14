@@ -11,7 +11,8 @@
     "test:eliasGammaService": "npm run test -- src/tests/services/eliasGammaService.test.js",
     "test:golombController": "npm run test -- src/tests/controllers/golombController.test.js",
     "test:eliasGammaController": "npm run test -- src/tests/controllers/eliasGammaController.test.js",
-    "test:golombRoutes": "npm run test -- src/tests/routes/golombRoutes.test.js"
+    "test:golombRoutes": "npm run test -- src/tests/routes/golombRoutes.test.js",
+    "test:eliasGammaRoutes": "npm run test -- src/tests/routes/eliasGammaRoutes.test.js"
   },
 "keywords": [],
 "author": "",
