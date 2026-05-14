@@ -8,6 +8,7 @@
     "dev": "nodemon src/server.js",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "test:golombService": "npm run test -- src/tests/services/golombService.test.js",
+    "test:eliasGammaService": "npm run test -- src/tests/services/eliasGammaService.test.js",
     "test:golombController": "npm run test -- src/tests/controllers/golombController.test.js",
     "test:golombRoutes": "npm run test -- src/tests/routes/golombRoutes.test.js"
   },
