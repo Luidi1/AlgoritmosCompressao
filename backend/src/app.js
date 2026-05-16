@@ -18,7 +18,7 @@ app.get("/ping", (req, res) => {
 });
 
 app.use("/golomb", golombRoutes);
-app.use("/eliasgamma", eliasGammaRoutes);
+app.use("/elias-gamma", eliasGammaRoutes);
 
 app.use(middlewarewErros);
 
