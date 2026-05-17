@@ -12,7 +12,7 @@ const encode = (texto) => {
         const charCode = texto.charCodeAt(i);
 
         while(numSequenciaFibonacci[indice] <= charCode){
-            if(numSequenciaFibonacci[indice] == charCode){
+            if(numSequenciaFibonacci[indice] === charCode){
                 simboloContidoNaSequencia = true;
                 break;
             }
@@ -32,7 +32,7 @@ const encode = (texto) => {
         let codeword = "";
         while(soma != charCode){
            for(let j = numSequenciaFibonacci.length - 1; j >= 0; j--){
-                if(j == numSequenciaFibonacci.length - 1){
+                if(j === numSequenciaFibonacci.length - 1){
                     soma += numSequenciaFibonacci[j];
                     codeword += "1";
                     //j--; //pq nao tem como ser consecutivo
@@ -67,4 +67,36 @@ const encode = (texto) => {
     return comprimido;
 }
 
-console.log(encode("A"));
+const resultado = encode("8")
+console.log(resultado);
+
+const decode = (codewords) => {
+    //fibonacciZeckendorfValidacao.validarEncodeFibonacciZeckendorf(texto);
+    let texto = "";
+    for(let i = 0; i < codewords.length; i++){
+        let soma = 0;
+        let numSequenciaFibonacci = [1, 2];
+        
+        
+
+        const codeword = codewords[i];
+        for(let j = 2; j < codeword.length - 1; j++){
+            numSequenciaFibonacci.push(numSequenciaFibonacci[j-1] + numSequenciaFibonacci[j - 2]);
+        }
+
+        for(let j = 0; j < codeword.length - 1; j++){
+            if(codeword[j] === "0"){
+                continue;
+            }
+            soma += parseInt(numSequenciaFibonacci[j]);
+        }
+
+        const charCode = soma;
+        const simbolo = String.fromCharCode(charCode);
+        texto += simbolo; 
+    }
+
+    return texto;
+}
+
+console.log(decode(resultado));
