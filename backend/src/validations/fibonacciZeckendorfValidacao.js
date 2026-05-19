@@ -43,7 +43,7 @@ const validarDecodeFibonacciZeckendorf = (codewords) => {
 
         if(!codeword.endsWith("11")){
             throw new ErroValidacao(
-                MENSAGENS_ERRO.FIBONACCI_ZECKENDORF_STOP_BIT_INVALIDO
+                MENSAGENS_ERRO.FIBONACCI_ZECKENDORF_SEM_STOP_BIT
             );
         }
 

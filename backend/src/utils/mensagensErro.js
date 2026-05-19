@@ -16,7 +16,7 @@ const MENSAGENS_ERRO = {
     ELIAS_GAMMA_NAO_SUPORTA_ZERO: "Elias Gamma não suporta o valor 0.",
 
     FIBONACCI_ZECKENDORF_NAO_SUPORTA_ZERO: "Fibonacci Zeckendorf não suporta o valor 0.",
-    FIBONACCI_ZECKENDORF_STOP_BIT_INVALIDO: "Codeword inválido para Fibonacci Zeckendorf. Stop bit inválido.",
+    FIBONACCI_ZECKENDORF_SEM_STOP_BIT: "Codeword inválido para Fibonacci Zeckendorf. Stop bit inválido.",
     FIBONACCI_ZECKENDORF_REPRESENTACAO_INVALIDA: "Codeword inválido para Fibonacci Zeckendorf. Representação inválida."
 };
 
