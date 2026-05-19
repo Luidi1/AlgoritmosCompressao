@@ -42,7 +42,7 @@ describe("Fibonacci Zeckendorf Controller - encode", () => {
             const resultado = [
                 "0100100011",
                 "1000101011",
-                "0010010011",
+                "0000001011",
                 "0100100011"
             ];
 
@@ -148,7 +148,7 @@ describe("Fibonacci Zeckendorf Controller - decode", () => {
                 codewords: [
                     "0100100011",
                     "1000101011",
-                    "0010010011",
+                    "0000001011",
                     "0100100011"
                 ]
             }

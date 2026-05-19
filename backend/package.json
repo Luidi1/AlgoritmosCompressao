@@ -14,7 +14,8 @@
     "test:eliasGammaController": "npm run test -- src/tests/controllers/eliasGammaController.test.js",
     "test:fibonacciZeckendorfController": "npm run test -- src/tests/controllers/fibonacciZeckendorfController.test.js",
     "test:golombRoutes": "npm run test -- src/tests/routes/golombRoutes.test.js",
-    "test:eliasGammaRoutes": "npm run test -- src/tests/routes/eliasGammaRoutes.test.js"
+    "test:eliasGammaRoutes": "npm run test -- src/tests/routes/eliasGammaRoutes.test.js",
+    "test:fibonacciZeckendorfRoutes": "npm run test -- src/tests/routes/fibonacciZeckendorfRoutes.test.js"
   },
 "keywords": [],
 "author": "",
