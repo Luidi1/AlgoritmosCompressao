@@ -8,10 +8,11 @@
     "dev": "nodemon src/server.js",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "test:golombService": "npm run test -- src/tests/services/golombService.test.js",
-    "test:fibonacciZeckendorf": "npm run test -- src/tests/services/fibonacciZeckendorf.test.js",
+    "test:fibonacciZeckendorfService": "npm run test -- src/tests/services/fibonacciZeckendorfService.test.js",
     "test:eliasGammaService": "npm run test -- src/tests/services/eliasGammaService.test.js",
     "test:golombController": "npm run test -- src/tests/controllers/golombController.test.js",
     "test:eliasGammaController": "npm run test -- src/tests/controllers/eliasGammaController.test.js",
+    "test:fibonacciZeckendorfController": "npm run test -- src/tests/controllers/fibonacciZeckendorfController.test.js",
     "test:golombRoutes": "npm run test -- src/tests/routes/golombRoutes.test.js",
     "test:eliasGammaRoutes": "npm run test -- src/tests/routes/eliasGammaRoutes.test.js"
   },
