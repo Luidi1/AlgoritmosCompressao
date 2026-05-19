@@ -13,7 +13,12 @@ const MENSAGENS_ERRO = {
     CODEWORD_TAMANHO_INVALIDO_GOLOMB: (pos) => `Codeword inválido na posição ${pos} do array de codewords. Tamanho inválido para o valor de k.`,
 
     CODEWORD_TAMANHO_INVALIDO_ELIASGAMMA: (pos) => `Codeword inválido na posição ${pos} do array de codewords. Tamanho inválido para Elias Gamma.`,
-    ELIAS_GAMMA_NAO_SUPORTA_ZERO: "Elias Gamma não suporta o valor 0."
+    ELIAS_GAMMA_NAO_SUPORTA_ZERO: "Elias Gamma não suporta o valor 0.",
+
+    FIBONACCI_ZECKENDORF_NAO_SUPORTA_ZERO: "Fibonacci Zeckendorf não suporta o valor 0.",
+    FIBONACCI_ZECKENDORF_STOP_BIT_INVALIDO: "Codeword inválido para Fibonacci Zeckendorf. Stop bit inválido.",
+    FIBONACCI_ZECKENDORF_REPRESENTACAO_INVALIDA: "Codeword inválido para Fibonacci Zeckendorf. Representação inválida."
 };
+
 
 export default MENSAGENS_ERRO;

@@ -1,102 +1,107 @@
-const encode = (texto) => {
-    //fibonacciZeckendorfValidacao.validarEncodeFibonacciZeckendorf(texto);
-    const comprimido = [];
-    const stopBit = 1;
-    
-    
-    for(let i = 0; i < texto.length; i++){
-        let numSequenciaFibonacci = [1, 2];
-        let simboloContidoNaSequencia = false;
-        let indice = 0;
+import ErroValidacao from "../errors/ErroValidacao.js";
+import MENSAGENS_ERRO from "../utils/mensagensErro.js";
+import fibonacciZeckendorfValidacao from "../validations/fibonacciZeckendorfValidacao.js";
 
+const encode = (texto) => {
+    fibonacciZeckendorfValidacao.validarEncodeFibonacciZeckendorf(texto);
+
+    const comprimido = [];
+    const stopBit = "1";
+
+    for(let i = 0; i < texto.length; i++){
         const charCode = texto.charCodeAt(i);
 
-        while(numSequenciaFibonacci[indice] <= charCode){
-            if(numSequenciaFibonacci[indice] === charCode){
-                simboloContidoNaSequencia = true;
+        if(charCode <= 0){
+            throw new ErroValidacao(MENSAGENS_ERRO.FIBONACCI_ZECKENDORF_NAO_SUPORTA_ZERO);
+        }
+
+        const sequenciaFibonacci = gerarSequenciaFibonacci(charCode);
+
+        let restante = charCode;
+        const bits = new Array(sequenciaFibonacci.length).fill("0");
+
+        for(let j = sequenciaFibonacci.length - 1; j >= 0; j--){
+            const numeroFibonacci = sequenciaFibonacci[j];
+
+            if(numeroFibonacci < restante){
+                bits[j] = "1";
+                restante -= numeroFibonacci;
+            }
+
+            else if(numeroFibonacci === restante){
+                bits[j] = "1";
                 break;
             }
-            numSequenciaFibonacci.push(numSequenciaFibonacci[indice] + numSequenciaFibonacci[indice+1]);
-            indice++;
         }
 
-        if(simboloContidoNaSequencia){
-            numSequenciaFibonacci.pop();
-        }
-        else{
-            numSequenciaFibonacci.pop();
-            numSequenciaFibonacci.pop();
-        }
-        
-        let soma = 0;
-        let codeword = "";
-        while(soma != charCode){
-           for(let j = numSequenciaFibonacci.length - 1; j >= 0; j--){
-                if(j === numSequenciaFibonacci.length - 1){
-                    soma += numSequenciaFibonacci[j];
-                    codeword += "1";
-                    //j--; //pq nao tem como ser consecutivo
-                    continue;
-                }
-                
-                if((soma + numSequenciaFibonacci[j]) > charCode){
-                    codeword = "0" + codeword;
-                }
-               
-                else if((soma + numSequenciaFibonacci[j]) < charCode){
-                    soma += numSequenciaFibonacci[j];
-                    codeword = "1" + codeword;
-                }
+        const codeword = bits.join("") + stopBit;
 
-                else{
-                    soma += numSequenciaFibonacci[j];
-                    codeword = "1" + codeword;
-                    if(j > 0){
-                        for(j = j - 1; j >= 0; j--){
-                            codeword = "0" + codeword;
-                        }
-                    }
-                    break;
-                }
-                
-            }
-        }
-        codeword += stopBit;
         comprimido.push(codeword);
     }
-    return comprimido;
-}
 
-const resultado = encode("8")
-console.log(resultado);
+    return comprimido;
+};
 
 const decode = (codewords) => {
-    //fibonacciZeckendorfValidacao.validarEncodeFibonacciZeckendorf(texto);
-    let texto = "";
+    fibonacciZeckendorfValidacao.validarDecodeFibonacciZeckendorf(codewords);
+
+    let textoDecodificado = "";
+
     for(let i = 0; i < codewords.length; i++){
-        let soma = 0;
-        let numSequenciaFibonacci = [1, 2];
-        
-        
-
         const codeword = codewords[i];
-        for(let j = 2; j < codeword.length - 1; j++){
-            numSequenciaFibonacci.push(numSequenciaFibonacci[j-1] + numSequenciaFibonacci[j - 2]);
-        }
 
-        for(let j = 0; j < codeword.length - 1; j++){
-            if(codeword[j] === "0"){
-                continue;
+        const bitsSemStopBit = codeword.slice(0, -1);
+
+        const sequenciaFibonacci = gerarSequenciaFibonacci(bitsSemStopBit.length, true);
+
+        let charCode = 0;
+
+        for(let j = 0; j < bitsSemStopBit.length; j++){
+            if(bitsSemStopBit[j] === "1"){
+                charCode += sequenciaFibonacci[j];
             }
-            soma += parseInt(numSequenciaFibonacci[j]);
         }
 
-        const charCode = soma;
-        const simbolo = String.fromCharCode(charCode);
-        texto += simbolo; 
+        textoDecodificado += String.fromCharCode(charCode);
     }
 
-    return texto;
-}
+    return textoDecodificado;
+};
+
+const gerarSequenciaFibonacci = (limite, porTamanho = false) => {
+    const sequenciaFibonacci = [1, 2];
+
+    if(porTamanho){
+        while(sequenciaFibonacci.length < limite){
+            const ultimo = sequenciaFibonacci[sequenciaFibonacci.length - 1];
+            const penultimo = sequenciaFibonacci[sequenciaFibonacci.length - 2];
+
+            sequenciaFibonacci.push(ultimo + penultimo);
+        }
+    }
+
+    else{
+        while(sequenciaFibonacci[sequenciaFibonacci.length - 1] < limite){
+            const ultimo = sequenciaFibonacci[sequenciaFibonacci.length - 1];
+            const penultimo = sequenciaFibonacci[sequenciaFibonacci.length - 2];
+
+            sequenciaFibonacci.push(ultimo + penultimo);
+        }
+
+        if(sequenciaFibonacci[sequenciaFibonacci.length - 1] > limite){
+            sequenciaFibonacci.pop();
+        }
+    }
+
+    return sequenciaFibonacci;
+};
+
+const resultado = encode("AULA");
+console.log(resultado);
 
 console.log(decode(resultado));
+
+export default {
+    encode,
+    decode
+};
