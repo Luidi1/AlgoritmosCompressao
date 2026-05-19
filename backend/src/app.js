@@ -4,6 +4,7 @@ import eliasGammaRoutes from "./routes/eliasGammaRoutes.js";
 import swaggerUi from "swagger-ui-express";
 import swaggerSpec from "./config/swagger.js";
 import middlewarewErros from "./middlewares/middlewareErros.js";
+import fibonacciZeckendorfRoutes from "./routes/fibonacciZeckendorfRoutes.js";
 
 
 
@@ -19,6 +20,7 @@ app.get("/ping", (req, res) => {
 
 app.use("/golomb", golombRoutes);
 app.use("/elias-gamma", eliasGammaRoutes);
+app.use("/fibonacci-Zeckendorf", fibonacciZeckendorfRoutes)
 
 app.use(middlewarewErros);
 
